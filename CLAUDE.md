@@ -17,7 +17,8 @@ A guardrail change usually touches both systems: the Fleet policy (and its webho
 - `fleet/default.yml`: global Fleet settings (GitOps).
 - `fleet/fleets/workstations.yml`: the Workstations fleet's policies, scripts, and webhook.
 - `fleet/lib/`: scripts and policy queries referenced from the YAML.
-- `okta/workflows/device-compliance/workflow.flopack`: Fail and Recover flows (exported JSON).
+- `okta/workflows/device-compliance/quarantine.flopack`: the Fail flow ("Fleet failing policy → Quarantine") and its helpers.
+- `okta/workflows/device-compliance/restore.flopack`: the Recover flow ("Restore compliant users"), its helpers, and the `gating_policies` list.
 - `tools/validate-flopack`: validator. Run it after every flopack edit.
 
 ## Flopack format notes
@@ -26,6 +27,6 @@ TODO
 
 ## Rules for editing
 
-- Run `tools/validate-flopack okta/workflows/device-compliance/workflow.flopack` after any flopack edit. Don't open a PR if it fails.
+- Run `tools/validate-flopack okta/workflows/device-compliance/*.flopack` after any flopack edit. Don't open a PR if it fails.
 - Never put secrets in the repo. Fleet YAML gets secrets from environment variables (GitHub Actions secrets).
 - PR descriptions need a plain-English change summary covering both Fleet and Okta.

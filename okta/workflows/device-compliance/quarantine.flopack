@@ -1,0 +1,4913 @@
+{
+  "type": "flopack",
+  "version": "1.5.0",
+  "created": "2026-10-07T17:00:00.000Z",
+  "flags": {
+    "auto-transform": true,
+    "looseBooleans": true,
+    "looseStrings": true,
+    "looseNulls": true
+  },
+  "data": {
+    "flos": {
+      "418da947-37a3-43f7-91e6-6db28eb02c3b": {
+        "id": "418da947-37a3-43f7-91e6-6db28eb02c3b",
+        "name": "Fleet failing policy → Quarantine",
+        "description": "Fleet's failing-policy webhook calls this API Endpoint with {\"timestamp\",\"policy\",{...},\"hosts\":[{\"id\",\"hostname\",\"display_name\",\"url\"}]}. Each host is handled by \"Quarantine host's user\" under For Each - Ignore Errors, so the flow always answers 200 and Fleet does not retry.",
+        "data": {
+          "id": null,
+          "uuid": "418da947-37a3-43f7-91e6-6db28eb02c3b",
+          "display": {
+            "preview": [
+              {
+                "module": "http",
+                "name": "accept",
+                "kernel": true
+              },
+              {
+                "module": "control",
+                "name": "let",
+                "kernel": true
+              },
+              {
+                "module": "json",
+                "name": "parse",
+                "kernel": true
+              },
+              {
+                "module": "object",
+                "name": "get",
+                "kernel": true
+              },
+              {
+                "module": "list",
+                "name": "asyncEach",
+                "kernel": true
+              },
+              {
+                "module": "control",
+                "name": "returnRaw",
+                "kernel": true
+              }
+            ],
+            "eventConnecterName": "API Endpoint",
+            "isCallable": false,
+            "isPublishable": true
+          },
+          "tree": {
+            "id": 2,
+            "name": "empty",
+            "description": "This flow has been build w/o a tree and uses the newer, async, Addressing module."
+          },
+          "methods": [
+            {
+              "joins": {},
+              "address": "root:kernel:http:0.0.1:accept",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:http:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:http",
+                  "key": "http",
+                  "data": {
+                    "name": "http"
+                  }
+                }
+              },
+              "uuid": "ZHhM0rXaW",
+              "branches": {},
+              "node": {
+                "key": "accept",
+                "data": {
+                  "name": "API Endpoint"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "accept",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": true,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "API Endpoint",
+                    "description": "Accept input to start a Flow."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "groupRules": {},
+                    "data": {
+                      "fu6OtIZnSy": {
+                        "id": "fu6OtIZnSy",
+                        "group": "raw",
+                        "key": "headers",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": {}
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "hidden": true,
+                          "index": 0
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "15aDGrrqct": {
+                        "id": "15aDGrrqct",
+                        "group": "raw",
+                        "key": "body",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": ""
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "hidden": true,
+                          "index": 1
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "Oi5O90aVzX": {
+                        "id": "Oi5O90aVzX",
+                        "group": "raw",
+                        "key": "query",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": ""
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "hidden": true,
+                          "index": 2
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "F5UpA8zu_e": {
+                        "id": "F5UpA8zu_e",
+                        "group": "context",
+                        "key": "execution_id",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Execution ID",
+                          "index": 3
+                        },
+                        "required": false,
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "groupRules": {
+                      "body": {
+                        "type": "object",
+                        "reserved": {},
+                        "extensible": true
+                      },
+                      "headers": {
+                        "type": "object",
+                        "reserved": {
+                          "Content-Type": "string"
+                        },
+                        "extensible": true
+                      },
+                      "query": {
+                        "type": "object",
+                        "reserved": {},
+                        "extensible": true
+                      },
+                      "context": {
+                        "extensible": false
+                      }
+                    },
+                    "data": {
+                      "OdaYBWkWrn": {
+                        "id": "OdaYBWkWrn",
+                        "group": "raw",
+                        "key": "headers",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": {}
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "hidden": true,
+                          "index": 0
+                        }
+                      },
+                      "sQmcYW6mfJ": {
+                        "id": "sQmcYW6mfJ",
+                        "group": "raw",
+                        "key": "body",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": ""
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "hidden": true,
+                          "index": 1
+                        },
+                        "_used": true
+                      },
+                      "nXipdaznHM": {
+                        "id": "nXipdaznHM",
+                        "group": "raw",
+                        "key": "query",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": ""
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "hidden": true,
+                          "index": 2
+                        }
+                      },
+                      "sXITnAe2f9": {
+                        "id": "sXITnAe2f9",
+                        "group": "context",
+                        "key": "execution_id",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Execution ID",
+                          "index": 3
+                        }
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "sQmcYW6mfJ": {
+                  "AnBfrU023": [
+                    {
+                      "input": "tfPBHzT3zI",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:control:0.0.1:let",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:control:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:control",
+                  "key": "control",
+                  "data": {
+                    "name": "control"
+                  }
+                }
+              },
+              "uuid": "1Wfquse-f",
+              "branches": {},
+              "node": {
+                "key": "let",
+                "data": {
+                  "name": "Configuration"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "let",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": true,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Configuration",
+                    "description": "Create new output fields based on the input supplied."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "BH9GdUBdPc": {
+                        "id": "BH9GdUBdPc",
+                        "group": null,
+                        "key": "fleet_url",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "https://fleet.ngrok.app",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "custom": true
+                        },
+                        "flags": "d"
+                      },
+                      "F0cyXi6k1K": {
+                        "id": "F0cyXi6k1K",
+                        "group": null,
+                        "key": "quarantine_group_id",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "00g14k2xwbljO5jdE1d8",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "custom": true
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "ph7y0y-nUv": {
+                        "id": "ph7y0y-nUv",
+                        "group": null,
+                        "key": "fleet_url",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "https://fleet.ngrok.app",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "custom": true
+                        },
+                        "flags": "d",
+                        "_used": true
+                      },
+                      "j29dBEbm_a": {
+                        "id": "j29dBEbm_a",
+                        "group": null,
+                        "key": "quarantine_group_id",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "00g14k2xwbljO5jdE1d8",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "custom": true
+                        },
+                        "flags": "d",
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "ph7y0y-nUv": {
+                  "McFzVGBtj": [
+                    {
+                      "input": "jgMDbMZdgI",
+                      "transform": null
+                    }
+                  ]
+                },
+                "j29dBEbm_a": {
+                  "McFzVGBtj": [
+                    {
+                      "input": "bFofy_nO11",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:json:0.0.1:parse",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:json:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:json",
+                  "key": "json",
+                  "data": {
+                    "name": "json"
+                  }
+                }
+              },
+              "uuid": "AnBfrU023",
+              "branches": {},
+              "node": {
+                "key": "parse",
+                "data": {
+                  "name": "Parse"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "parse",
+                  "executable": true,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 30000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Parse",
+                    "description": "Parse a JSON string into an object or list."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "data": {
+                      "tfPBHzT3zI": {
+                        "id": "tfPBHzT3zI",
+                        "group": null,
+                        "key": "string",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {
+                      "output": {
+                        "types": [
+                          "string",
+                          "number",
+                          "Date",
+                          "object",
+                          "boolean"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "BnbUmPe1cj": {
+                        "id": "BnbUmPe1cj",
+                        "group": null,
+                        "key": "output",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": null
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "BnbUmPe1cj": {
+                  "qtEB_GTM1": [
+                    {
+                      "input": "HCFeol70NY",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:object:0.0.1:get",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:object:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:object",
+                  "key": "object",
+                  "data": {
+                    "name": "object"
+                  }
+                }
+              },
+              "uuid": "qtEB_GTM1",
+              "branches": {},
+              "node": {
+                "key": "get",
+                "data": {
+                  "name": "Get hosts"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "get",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Get hosts",
+                    "description": "Read a value from an object at a given path."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {
+                      "object": {
+                        "types": [
+                          "object"
+                        ],
+                        "collection": "*"
+                      },
+                      "path": {
+                        "types": [
+                          "string"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "HCFeol70NY": {
+                        "id": "HCFeol70NY",
+                        "group": null,
+                        "key": "object",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "XXL8uTkjOQ": {
+                        "id": "XXL8uTkjOQ",
+                        "group": null,
+                        "key": "path",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "hosts",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {
+                      "output": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "KjzPc6uRoS": {
+                        "id": "KjzPc6uRoS",
+                        "group": null,
+                        "key": "output",
+                        "value": {
+                          "type": "object",
+                          "collection": true,
+                          "data": "",
+                          "available": [
+                            "*"
+                          ],
+                          "error": false
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "description": "",
+                          "displayname": "hosts"
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "KjzPc6uRoS": {
+                  "McFzVGBtj": [
+                    {
+                      "input": "8yS2sQer2b",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:list:0.0.1:asyncEach",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:list:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:list",
+                  "key": "list",
+                  "data": {
+                    "name": "list"
+                  }
+                }
+              },
+              "uuid": "McFzVGBtj",
+              "branches": {},
+              "node": {
+                "key": "asyncEach",
+                "data": {
+                  "name": "For Each - Ignore Errors"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "asyncEach",
+                  "executable": false,
+                  "displayed": true,
+                  "async": true,
+                  "cooperative": true,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 300000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "For Each - Ignore Errors",
+                    "description": "Process items in a list by calling a Flow for each item, continuing through all items in the list even if one of them causes an error in the helper Flow (aka For Each Async)."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {
+                      "list": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": true
+                      }
+                    },
+                    "groupRules": {
+                      "context": {
+                        "type": "object",
+                        "reserved": {
+                          "index": "number"
+                        },
+                        "extensible": true
+                      }
+                    },
+                    "data": {
+                      "8yS2sQer2b": {
+                        "id": "8yS2sQer2b",
+                        "group": null,
+                        "key": "list",
+                        "value": {
+                          "type": "object",
+                          "collection": true,
+                          "data": [],
+                          "available": [
+                            "*"
+                          ],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "0BbO_LJNlO": {
+                        "id": "0BbO_LJNlO",
+                        "group": null,
+                        "key": "flo",
+                        "value": {
+                          "type": "flo",
+                          "collection": false,
+                          "data": "71e06f4e-f980-49dd-a549-011f0bac9be4",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Helper Flow",
+                          "index": 1
+                        },
+                        "flags": "d"
+                      },
+                      "06bfNlpuiY": {
+                        "id": "06bfNlpuiY",
+                        "group": null,
+                        "key": "concurrency",
+                        "value": {
+                          "type": "number",
+                          "collection": false,
+                          "data": 5
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "max": 200,
+                          "min": 1,
+                          "index": 2
+                        },
+                        "flags": "d"
+                      },
+                      "Xe8lLxtcA4": {
+                        "id": "Xe8lLxtcA4",
+                        "group": null,
+                        "key": "host",
+                        "value": {
+                          "error": false,
+                          "proxy": {
+                            "dynamic": true,
+                            "path": "",
+                            "dest": {
+                              "key": "host",
+                              "group": null
+                            }
+                          },
+                          "check": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": []
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 3,
+                          "custom": true
+                        },
+                        "flags": "d"
+                      },
+                      "jgMDbMZdgI": {
+                        "id": "jgMDbMZdgI",
+                        "group": null,
+                        "key": "fleet_url",
+                        "value": {
+                          "error": false,
+                          "proxy": {
+                            "dynamic": false,
+                            "path": null,
+                            "dest": {
+                              "key": "fleet_url",
+                              "group": null
+                            }
+                          },
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": []
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 4,
+                          "custom": true
+                        },
+                        "flags": "d"
+                      },
+                      "bFofy_nO11": {
+                        "id": "bFofy_nO11",
+                        "group": null,
+                        "key": "quarantine_group_id",
+                        "value": {
+                          "error": false,
+                          "proxy": {
+                            "dynamic": false,
+                            "path": null,
+                            "dest": {
+                              "key": "quarantine_group_id",
+                              "group": null
+                            }
+                          },
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": []
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 5,
+                          "custom": true
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "data": {}
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {}
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:control:0.0.1:returnRaw",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:control:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:control",
+                  "key": "control",
+                  "data": {
+                    "name": "control"
+                  }
+                }
+              },
+              "uuid": "NYRv9oru1",
+              "branches": {},
+              "node": {
+                "key": "returnRaw",
+                "data": {
+                  "name": "Return Raw"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "returnRaw",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": true,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Return Raw",
+                    "description": "Return raw http data from a Flow to the caller, such as XML."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "data": {
+                      "DARIoN62U1": {
+                        "id": "DARIoN62U1",
+                        "group": null,
+                        "key": "statusCode",
+                        "value": {
+                          "type": "number",
+                          "collection": false,
+                          "data": 200,
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "YN0er8xT4-": {
+                        "id": "YN0er8xT4-",
+                        "group": null,
+                        "key": "headers",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": {
+                            "Content-Type": "application/json"
+                          }
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1
+                        },
+                        "flags": "d"
+                      },
+                      "VGGiiyDFsV": {
+                        "id": "VGGiiyDFsV",
+                        "group": null,
+                        "key": "body",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "{\"ok\":true}"
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 2
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "data": {
+                      "WT6trAHr7N": {
+                        "id": "WT6trAHr7N",
+                        "group": null,
+                        "key": "statusCode",
+                        "value": {
+                          "type": "number",
+                          "collection": false,
+                          "data": 200,
+                          "available": [],
+                          "error": false
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "c4j5Lrrt1e": {
+                        "id": "c4j5Lrrt1e",
+                        "group": null,
+                        "key": "headers",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": {
+                            "Content-Type": "application/json"
+                          }
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "forceHide": true,
+                          "index": 1
+                        }
+                      },
+                      "nBiME8a5Nr": {
+                        "id": "nBiME8a5Nr",
+                        "group": null,
+                        "key": "body",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "{\"ok\":true}"
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "forceHide": true,
+                          "index": 2
+                        }
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {}
+            }
+          ],
+          "model": {},
+          "orderings": {
+            "JzgPrKvdE_": [
+              "ZHhM0rXaW",
+              "1Wfquse-f"
+            ],
+            "W52dIipgkk": [
+              "1Wfquse-f",
+              "AnBfrU023"
+            ],
+            "fclwMFbDqj": [
+              "AnBfrU023",
+              "qtEB_GTM1"
+            ],
+            "3bsnnMN91h": [
+              "qtEB_GTM1",
+              "McFzVGBtj"
+            ],
+            "AwgndFCqJa": [
+              "McFzVGBtj",
+              "NYRv9oru1"
+            ]
+          },
+          "cron": {},
+          "security_level": "medium",
+          "log": true,
+          "inheritLog": true,
+          "scheduled": false,
+          "group": "9936ffac-4255-4a29-a2d6-cff38e9e8e66",
+          "templateName": null,
+          "connector_method_meta": {
+            "inputs": {},
+            "outputs": {},
+            "options": {}
+          },
+          "monitor_flo": false
+        }
+      },
+      "71e06f4e-f980-49dd-a549-011f0bac9be4": {
+        "id": "71e06f4e-f980-49dd-a549-011f0bac9be4",
+        "name": "Quarantine host's user",
+        "description": "Look up the host in Fleet, read its IdP username (host.end_users[0].idp_username), add that Okta user to the Quarantine group, and clear their sessions and OAuth tokens. A host with no IdP username is skipped.",
+        "data": {
+          "id": null,
+          "uuid": "71e06f4e-f980-49dd-a549-011f0bac9be4",
+          "display": {
+            "preview": [
+              {
+                "module": "control",
+                "name": "callable",
+                "kernel": true
+              },
+              {
+                "module": "object",
+                "name": "get",
+                "kernel": true
+              },
+              {
+                "module": "string",
+                "name": "compose",
+                "kernel": true
+              },
+              {
+                "module": "control",
+                "name": "spawn",
+                "kernel": true
+              },
+              {
+                "module": "object",
+                "name": "get",
+                "kernel": true
+              },
+              {
+                "module": "control",
+                "name": "continueIf",
+                "kernel": true
+              },
+              {
+                "module": "okta",
+                "name": "readUser",
+                "kernel": false
+              },
+              {
+                "module": "okta",
+                "name": "addNewUserToGroup",
+                "kernel": false
+              },
+              {
+                "module": "okta",
+                "name": "clearUserSessions",
+                "kernel": false
+              }
+            ],
+            "eventConnecterName": "Helper Flow",
+            "isCallable": true
+          },
+          "tree": {
+            "id": 2,
+            "name": "empty",
+            "description": "This flow has been build w/o a tree and uses the newer, async, Addressing module."
+          },
+          "methods": [
+            {
+              "joins": {},
+              "address": "root:kernel:control:0.0.1:callable",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:control:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:control",
+                  "key": "control",
+                  "data": {
+                    "name": "control"
+                  }
+                }
+              },
+              "uuid": "5rBjGgp__",
+              "branches": {},
+              "node": {
+                "key": "callable",
+                "data": {
+                  "name": "Helper Flow"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "callable",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": true,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 30000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Helper Flow",
+                    "description": "Start a Flow that executes on-demand, i.e. called by another Flow or via the Invoke API."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "groupRules": {
+                      "body": {
+                        "type": "object",
+                        "reserved": {},
+                        "extensible": true
+                      },
+                      "headers": {
+                        "type": "object",
+                        "reserved": {
+                          "Content-Type": "string"
+                        },
+                        "extensible": true
+                      },
+                      "query": {
+                        "type": "object",
+                        "reserved": {},
+                        "extensible": true
+                      }
+                    },
+                    "data": {
+                      "9QbPfkzjsm": {
+                        "id": "9QbPfkzjsm",
+                        "group": "context",
+                        "key": "index",
+                        "value": {
+                          "error": false,
+                          "type": "number",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Index",
+                          "index": 0
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "i7Y76WJtZ6": {
+                        "id": "i7Y76WJtZ6",
+                        "group": "context",
+                        "key": "parent",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "id": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "method": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "name": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "execution_id": {
+                              "type": "string",
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Caller",
+                          "collapsed": true,
+                          "index": 1
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "7YWE1vcfIB": {
+                        "id": "7YWE1vcfIB",
+                        "group": "context",
+                        "key": "error",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "message": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "method": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "flo": {
+                              "type": "number",
+                              "collection": false
+                            },
+                            "execution": {
+                              "type": "string",
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Error",
+                          "collapsed": true,
+                          "index": 2
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "iY5JjvN3Wx": {
+                        "id": "iY5JjvN3Wx",
+                        "group": "context",
+                        "key": "execution_id",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Execution ID",
+                          "index": 3
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "162MbmBg42": {
+                        "id": "162MbmBg42",
+                        "group": null,
+                        "key": "host",
+                        "value": {
+                          "error": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 4,
+                          "custom": true
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "ORY2FTiNNz": {
+                        "id": "ORY2FTiNNz",
+                        "group": null,
+                        "key": "fleet_url",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 5,
+                          "custom": true
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "R1GH475FwX": {
+                        "id": "R1GH475FwX",
+                        "group": null,
+                        "key": "quarantine_group_id",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 6,
+                          "custom": true
+                        },
+                        "required": false,
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "kgV5LaX8Df": {
+                        "id": "kgV5LaX8Df",
+                        "group": "context",
+                        "key": "index",
+                        "value": {
+                          "error": false,
+                          "type": "number",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Index",
+                          "index": 0
+                        }
+                      },
+                      "1tCCjo9Tq3": {
+                        "id": "1tCCjo9Tq3",
+                        "group": "context",
+                        "key": "parent",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "id": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "method": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "name": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "execution_id": {
+                              "type": "string",
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Caller",
+                          "collapsed": true,
+                          "index": 1
+                        }
+                      },
+                      "BXANekVNls": {
+                        "id": "BXANekVNls",
+                        "group": "context",
+                        "key": "error",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "message": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "method": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "flo": {
+                              "type": "number",
+                              "collection": false
+                            },
+                            "execution": {
+                              "type": "string",
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Error",
+                          "collapsed": true,
+                          "index": 2
+                        }
+                      },
+                      "8Q4Q-hWnVc": {
+                        "id": "8Q4Q-hWnVc",
+                        "group": "context",
+                        "key": "execution_id",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Execution ID",
+                          "index": 3
+                        }
+                      },
+                      "wpbf2dsgOt": {
+                        "id": "wpbf2dsgOt",
+                        "group": null,
+                        "key": "host",
+                        "value": {
+                          "error": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 4,
+                          "custom": true
+                        },
+                        "_used": true
+                      },
+                      "EMBiQbMdfN": {
+                        "id": "EMBiQbMdfN",
+                        "group": null,
+                        "key": "fleet_url",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 5,
+                          "custom": true
+                        },
+                        "_used": true
+                      },
+                      "1BlpeJwSJn": {
+                        "id": "1BlpeJwSJn",
+                        "group": null,
+                        "key": "quarantine_group_id",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 6,
+                          "custom": true
+                        },
+                        "_used": true
+                      }
+                    },
+                    "groupRules": {
+                      "context": {
+                        "extensible": false
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "wpbf2dsgOt": {
+                  "Gcem5RHj2": [
+                    {
+                      "input": "kjCbx56qQG",
+                      "transform": null
+                    }
+                  ]
+                },
+                "EMBiQbMdfN": {
+                  "zJXTerU1e": [
+                    {
+                      "input": "7KhH4msjbh",
+                      "transform": null
+                    }
+                  ]
+                },
+                "1BlpeJwSJn": {
+                  "BHhOW_pom": [
+                    {
+                      "input": "BSwwr1YSHv",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:object:0.0.1:get",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:object:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:object",
+                  "key": "object",
+                  "data": {
+                    "name": "object"
+                  }
+                }
+              },
+              "uuid": "Gcem5RHj2",
+              "branches": {},
+              "node": {
+                "key": "get",
+                "data": {
+                  "name": "Get host ID"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "get",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Get host ID",
+                    "description": "Read a value from an object at a given path."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {
+                      "object": {
+                        "types": [
+                          "object"
+                        ],
+                        "collection": "*"
+                      },
+                      "path": {
+                        "types": [
+                          "string"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "kjCbx56qQG": {
+                        "id": "kjCbx56qQG",
+                        "group": null,
+                        "key": "object",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "imYXF0yT5V": {
+                        "id": "imYXF0yT5V",
+                        "group": null,
+                        "key": "path",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "id",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {
+                      "output": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "Uc8TmfDoFE": {
+                        "id": "Uc8TmfDoFE",
+                        "group": null,
+                        "key": "output",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "*"
+                          ],
+                          "error": false
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "description": "",
+                          "displayname": "host_id"
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "Uc8TmfDoFE": {
+                  "9f4ktfSue": [
+                    {
+                      "input": "cvBPU_lTLR",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:string:0.0.1:compose",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:string:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:string",
+                  "key": "string",
+                  "data": {
+                    "name": "string"
+                  }
+                }
+              },
+              "uuid": "9f4ktfSue",
+              "branches": {},
+              "node": {
+                "key": "compose",
+                "data": {
+                  "name": "Compose host path"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "compose",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Compose host path",
+                    "description": "Enter free form text and optionally drag fields into your text like a mail merge."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "string"
+                        ],
+                        "collection": false
+                      }
+                    },
+                    "data": {
+                      "Q95L4CHK4q": {
+                        "id": "Q95L4CHK4q",
+                        "group": null,
+                        "key": "_text_",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "/api/v1/fleet/hosts/{{{vtQx3M4CH}}}",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "cvBPU_lTLR": {
+                        "id": "cvBPU_lTLR",
+                        "group": null,
+                        "key": "vtQx3M4CH",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "data": {
+                      "7YhSmDrsIX": {
+                        "id": "7YhSmDrsIX",
+                        "group": null,
+                        "key": "output",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [],
+                          "error": false
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "description": "",
+                          "displayname": "path"
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "7YhSmDrsIX": {
+                  "zJXTerU1e": [
+                    {
+                      "input": "ydjlRsGMSS",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:control:0.0.1:spawn",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:control:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:control",
+                  "key": "control",
+                  "data": {
+                    "name": "control"
+                  }
+                }
+              },
+              "uuid": "zJXTerU1e",
+              "branches": {},
+              "node": {
+                "key": "spawn",
+                "data": {
+                  "name": "Call Fleet GET"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "spawn",
+                  "executable": false,
+                  "displayed": true,
+                  "async": true,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 300000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Call Fleet GET",
+                    "description": "Run a Flow and wait for the resulting output."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": true,
+                    "groupRules": {
+                      "context": {
+                        "extensible": true,
+                        "reserved": {},
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "CQ_6jnKuIW": {
+                        "id": "CQ_6jnKuIW",
+                        "group": null,
+                        "key": "flo",
+                        "value": {
+                          "type": "flo",
+                          "collection": false,
+                          "data": "34f72347-13de-40c5-b6dd-0cd055def636",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Helper Flow",
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "7KhH4msjbh": {
+                        "id": "7KhH4msjbh",
+                        "group": null,
+                        "key": "fleet_url",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": []
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "custom": true,
+                          "transient": true
+                        },
+                        "flags": "d"
+                      },
+                      "ydjlRsGMSS": {
+                        "id": "ydjlRsGMSS",
+                        "group": null,
+                        "key": "path",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": []
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 2,
+                          "custom": true,
+                          "transient": true
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "lzQlmGvI4O": {
+                        "id": "lzQlmGvI4O",
+                        "group": null,
+                        "key": "body",
+                        "value": {
+                          "error": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "custom": true
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "lzQlmGvI4O": {
+                  "OSlvIQSq0": [
+                    {
+                      "input": "yKo__YSx4Q",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:object:0.0.1:get",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:object:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:object",
+                  "key": "object",
+                  "data": {
+                    "name": "object"
+                  }
+                }
+              },
+              "uuid": "OSlvIQSq0",
+              "branches": {},
+              "node": {
+                "key": "get",
+                "data": {
+                  "name": "Get IdP username"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "get",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Get IdP username",
+                    "description": "Read a value from an object at a given path."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {
+                      "object": {
+                        "types": [
+                          "object"
+                        ],
+                        "collection": "*"
+                      },
+                      "path": {
+                        "types": [
+                          "string"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "yKo__YSx4Q": {
+                        "id": "yKo__YSx4Q",
+                        "group": null,
+                        "key": "object",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "ia-4Mf1fRV": {
+                        "id": "ia-4Mf1fRV",
+                        "group": null,
+                        "key": "path",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "host.end_users.0.idp_username",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {
+                      "output": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "tq-3LtQG0G": {
+                        "id": "tq-3LtQG0G",
+                        "group": null,
+                        "key": "output",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "*"
+                          ],
+                          "error": false
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "description": "",
+                          "displayname": "idp_username"
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "tq-3LtQG0G": {
+                  "0gaqYzbOo": [
+                    {
+                      "input": "Ie-TsC5ZVJ",
+                      "transform": null
+                    }
+                  ],
+                  "ZA8nG8kty": [
+                    {
+                      "input": "bVAWuYc8R1",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:control:0.0.1:continueIf",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:control:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:control",
+                  "key": "control",
+                  "data": {
+                    "name": "control"
+                  }
+                }
+              },
+              "uuid": "0gaqYzbOo",
+              "branches": {},
+              "node": {
+                "key": "continueIf",
+                "data": {
+                  "name": "Continue If host has an IdP user"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "continueIf",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Continue If host has an IdP user",
+                    "description": "Stop the Flow if a condition isn't true."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {
+                      "left-operand": {
+                        "types": [
+                          "object",
+                          "string",
+                          "number",
+                          "Date",
+                          "boolean"
+                        ]
+                      },
+                      "right-operand": {
+                        "types": [
+                          "object",
+                          "string",
+                          "number",
+                          "Date",
+                          "boolean"
+                        ]
+                      }
+                    },
+                    "data": {
+                      "Ie-TsC5ZVJ": {
+                        "id": "Ie-TsC5ZVJ",
+                        "group": null,
+                        "key": "left-operand",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "object",
+                            "string",
+                            "number",
+                            "Date",
+                            "boolean"
+                          ],
+                          "error": false
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "displayname": "value a"
+                        },
+                        "flags": "d"
+                      },
+                      "mFzegjlUYR": {
+                        "id": "mFzegjlUYR",
+                        "group": null,
+                        "key": "operator",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "is not empty",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "choices": [
+                            {
+                              "value": "==",
+                              "label": "equal to"
+                            },
+                            {
+                              "value": "!=",
+                              "label": "not equal"
+                            },
+                            {
+                              "value": ">=",
+                              "label": "greater than or equal"
+                            },
+                            {
+                              "value": "<=",
+                              "label": "less than or equal"
+                            },
+                            {
+                              "value": ">",
+                              "label": "greater than"
+                            },
+                            {
+                              "value": "<",
+                              "label": "less than"
+                            },
+                            {
+                              "value": "%",
+                              "label": "a multiple of"
+                            },
+                            {
+                              "value": "in",
+                              "label": "in"
+                            },
+                            {
+                              "value": "not in",
+                              "label": "not in"
+                            },
+                            {
+                              "value": "has",
+                              "label": "has key"
+                            },
+                            {
+                              "value": "doesn't have",
+                              "label": "doesn't have key"
+                            },
+                            {
+                              "value": "is empty",
+                              "label": "is empty"
+                            },
+                            {
+                              "value": "is not empty",
+                              "label": "is not empty"
+                            }
+                          ],
+                          "displayname": "comparison"
+                        },
+                        "flags": "d"
+                      },
+                      "QxPuREi6nw": {
+                        "id": "QxPuREi6nw",
+                        "group": null,
+                        "key": "right-operand",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "object",
+                            "string",
+                            "number",
+                            "Date",
+                            "boolean"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 2,
+                          "displayname": "value b"
+                        },
+                        "flags": "d"
+                      },
+                      "2soHVb9O1B": {
+                        "id": "2soHVb9O1B",
+                        "group": "otherwise",
+                        "key": "message",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "Fleet has no IdP username for this host, so there is no user to quarantine.",
+                          "available": [
+                            "*"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 3
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "data": {
+                      "4KUzgH5JUv": {
+                        "id": "4KUzgH5JUv",
+                        "group": null,
+                        "key": "message",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": null
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "hidden": true,
+                          "displayed": false,
+                          "index": 0
+                        }
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {}
+            },
+            {
+              "joins": {},
+              "address": "root:channels:http:okta:1.0.679:readUser",
+              "parents": {
+                "version": {
+                  "address": "root:channels:http:okta:1.0.679",
+                  "key": "1.0.679",
+                  "data": {
+                    "name": "1.0.679",
+                    "id": 1735
+                  }
+                },
+                "channel": {
+                  "address": "root:channels:http:okta",
+                  "key": "okta",
+                  "data": {
+                    "name": "okta",
+                    "id": 17
+                  }
+                }
+              },
+              "uuid": "ZA8nG8kty",
+              "branches": {},
+              "node": {
+                "key": "readUser",
+                "data": {
+                  "name": "Read User"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "readUser",
+                  "executable": true,
+                  "displayed": true,
+                  "async": true,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "compat": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 30000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": 49081,
+                    "name": "Read User",
+                    "description": null
+                  },
+                  "meta": {
+                    "585be2db-1dcd-49f3-b8b2-d0a19c420651": {
+                      "id": "tpoozBzSKG1",
+                      "address": {
+                        "key": null,
+                        "group": "Profile Properties",
+                        "fieldIndex": 0,
+                        "defaultValue": {
+                          "path": [],
+                          "method": "getUserProfileFields"
+                        },
+                        "namespace": "output"
+                      }
+                    }
+                  },
+                  "config": "b3e7e59d-2718-4eb4-93d1-66f991f79da2",
+                  "partnerChannelKeys": 206,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {},
+                    "groupRules": {
+                      "User": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 0,
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "bVAWuYc8R1": {
+                        "id": "bVAWuYc8R1",
+                        "group": "User",
+                        "key": "ID or Login",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {},
+                    "groupRules": {
+                      "System Properties": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 0,
+                        "type": "object"
+                      },
+                      "Profile Properties": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 1,
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "XibGZ_-Vk5": {
+                        "id": "XibGZ_-Vk5",
+                        "group": "System Properties",
+                        "key": "ID",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "_used": true
+                      },
+                      "UpvhzRQKn8": {
+                        "id": "UpvhzRQKn8",
+                        "group": "System Properties",
+                        "key": "Status",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 2
+                        }
+                      },
+                      "5oiaQoXEFk": {
+                        "id": "5oiaQoXEFk",
+                        "group": "System Properties",
+                        "key": "Created",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 4
+                        }
+                      },
+                      "xXZz_Ahr0L": {
+                        "id": "xXZz_Ahr0L",
+                        "group": "System Properties",
+                        "key": "Activated",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 6
+                        }
+                      },
+                      "1VvPJElPB6": {
+                        "id": "1VvPJElPB6",
+                        "group": "System Properties",
+                        "key": "Status Changed",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 7
+                        }
+                      },
+                      "dbKYEU1Y02": {
+                        "id": "dbKYEU1Y02",
+                        "group": "System Properties",
+                        "key": "Last Login",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 8
+                        }
+                      },
+                      "udIovBrZ6C": {
+                        "id": "udIovBrZ6C",
+                        "group": "System Properties",
+                        "key": "Last Updated",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 9
+                        }
+                      },
+                      "3jCfOQJXoO": {
+                        "id": "3jCfOQJXoO",
+                        "group": "System Properties",
+                        "key": "Password Changed",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 10
+                        }
+                      },
+                      "F_4DQxNntR": {
+                        "id": "F_4DQxNntR",
+                        "group": "System Properties",
+                        "key": "Credentials",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "Emails": {
+                              "type": "object",
+                              "collection": true
+                            },
+                            "Password": {
+                              "type": "boolean",
+                              "collection": false
+                            },
+                            "Recovery Question": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "Provider": {
+                              "type": {
+                                "Name": {
+                                  "type": "string",
+                                  "collection": false
+                                },
+                                "Type": {
+                                  "type": "string",
+                                  "collection": false
+                                }
+                              },
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": {},
+                          "available": [
+                            {
+                              "Emails": {
+                                "type": "object",
+                                "collection": true
+                              },
+                              "Password": {
+                                "type": "boolean",
+                                "collection": false
+                              },
+                              "Recovery Question": {
+                                "type": "string",
+                                "collection": false
+                              },
+                              "Provider": {
+                                "type": {
+                                  "Name": {
+                                    "type": "string",
+                                    "collection": false
+                                  },
+                                  "Type": {
+                                    "type": "string",
+                                    "collection": false
+                                  }
+                                },
+                                "collection": false
+                              }
+                            }
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 11
+                        }
+                      },
+                      "MM9ilvqnDS": {
+                        "id": "MM9ilvqnDS",
+                        "group": "Profile Properties",
+                        "key": "login",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "displayname": "Username"
+                        }
+                      },
+                      "wRIlA-HI2n": {
+                        "id": "wRIlA-HI2n",
+                        "group": "Profile Properties",
+                        "key": "firstName",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 3,
+                          "displayname": "First name"
+                        }
+                      },
+                      "bEPLR5LQwH": {
+                        "id": "bEPLR5LQwH",
+                        "group": "Profile Properties",
+                        "key": "lastName",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 5,
+                          "displayname": "Last name"
+                        }
+                      },
+                      "eORGGuxifU": {
+                        "id": "eORGGuxifU",
+                        "group": "Profile Properties",
+                        "key": "userType",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 12,
+                          "displayname": "User type"
+                        }
+                      }
+                    }
+                  },
+                  "runtime": {},
+                  "display": {
+                    "configRef": "90084b62-e1a3-4cca-a890-954e6c6fdc8b"
+                  },
+                  "comments": "Retrieve Okta user information using a User ID or User Login.",
+                  "enableNewMetadata": true
+                }
+              },
+              "pins": {
+                "XibGZ_-Vk5": {
+                  "BHhOW_pom": [
+                    {
+                      "input": "bCd0_1ICTM",
+                      "transform": null
+                    }
+                  ],
+                  "KspsMwhbo": [
+                    {
+                      "input": "Z0GJQ2yFJX",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:channels:http:okta:1.0.679:addNewUserToGroup",
+              "parents": {
+                "version": {
+                  "address": "root:channels:http:okta:1.0.679",
+                  "key": "1.0.679",
+                  "data": {
+                    "name": "1.0.679",
+                    "id": 1566
+                  }
+                },
+                "channel": {
+                  "address": "root:channels:http:okta",
+                  "key": "okta",
+                  "data": {
+                    "name": "okta",
+                    "id": 17
+                  }
+                }
+              },
+              "uuid": "BHhOW_pom",
+              "branches": {},
+              "node": {
+                "key": "addNewUserToGroup",
+                "data": {
+                  "name": "Add User to Group"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "addNewUserToGroup",
+                  "executable": true,
+                  "displayed": true,
+                  "async": true,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "compat": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 30000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": 47363,
+                    "name": "Add User to Group",
+                    "description": null
+                  },
+                  "meta": {},
+                  "config": "b3e7e59d-2718-4eb4-93d1-66f991f79da2",
+                  "partnerChannelKeys": 206,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {},
+                    "groupRules": {
+                      "Group": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 0,
+                        "type": "object"
+                      },
+                      "User": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 1,
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "BSwwr1YSHv": {
+                        "id": "BSwwr1YSHv",
+                        "group": "Group",
+                        "key": "id",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Group ID",
+                          "index": 0,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      },
+                      "bCd0_1ICTM": {
+                        "id": "bCd0_1ICTM",
+                        "group": "User",
+                        "key": "id",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "User ID",
+                          "index": 1,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {},
+                    "groupRules": {
+                      "Result": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 0,
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "7MkH3Wohgs": {
+                        "id": "7MkH3Wohgs",
+                        "group": "Result",
+                        "key": "status",
+                        "value": {
+                          "error": false,
+                          "type": "number",
+                          "collection": false,
+                          "data": 0,
+                          "available": [
+                            "number"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Status",
+                          "index": 0
+                        }
+                      }
+                    }
+                  },
+                  "runtime": {},
+                  "display": {
+                    "configRef": "401a3c47-49e5-41ac-9ca9-babe798f32f4"
+                  },
+                  "comments": "Adds an Okta user to a group with OKTA_GROUP type.",
+                  "enableNewMetadata": true
+                }
+              },
+              "pins": {}
+            },
+            {
+              "joins": {},
+              "address": "root:channels:http:okta:1.0.679:clearUserSessions",
+              "parents": {
+                "version": {
+                  "address": "root:channels:http:okta:1.0.679",
+                  "key": "1.0.679",
+                  "data": {
+                    "name": "1.0.679",
+                    "id": 1566
+                  }
+                },
+                "channel": {
+                  "address": "root:channels:http:okta",
+                  "key": "okta",
+                  "data": {
+                    "name": "okta",
+                    "id": 17
+                  }
+                }
+              },
+              "uuid": "KspsMwhbo",
+              "branches": {},
+              "node": {
+                "key": "clearUserSessions",
+                "data": {
+                  "name": "Clear User Sessions"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "clearUserSessions",
+                  "executable": true,
+                  "displayed": true,
+                  "async": true,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "compat": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 30000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": 47367,
+                    "name": "Clear User Sessions",
+                    "description": null
+                  },
+                  "meta": {},
+                  "config": "b3e7e59d-2718-4eb4-93d1-66f991f79da2",
+                  "partnerChannelKeys": 206,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {},
+                    "groupRules": {
+                      "User": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 0,
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "Z0GJQ2yFJX": {
+                        "id": "Z0GJQ2yFJX",
+                        "group": "User",
+                        "key": "ID",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      },
+                      "wioZZWeRvJ": {
+                        "id": "wioZZWeRvJ",
+                        "group": "User",
+                        "key": "Revoke oauthTokens?",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "boolean",
+                          "collection": false,
+                          "data": true,
+                          "available": [
+                            "boolean"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {},
+                    "groupRules": {
+                      "Output": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 0,
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "ic_dmUxtqg": {
+                        "id": "ic_dmUxtqg",
+                        "group": "Output",
+                        "key": "Status Code",
+                        "value": {
+                          "error": false,
+                          "type": "number",
+                          "collection": false,
+                          "data": 0,
+                          "available": [
+                            "number"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        }
+                      }
+                    }
+                  },
+                  "runtime": {},
+                  "display": {
+                    "configRef": "401a3c47-49e5-41ac-9ca9-babe798f32f4"
+                  },
+                  "comments": "Removes all active identity provider sessions in Okta, forcing the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.",
+                  "enableNewMetadata": true
+                }
+              },
+              "pins": {}
+            }
+          ],
+          "model": {},
+          "orderings": {
+            "DaTujQpZ9K": [
+              "5rBjGgp__",
+              "Gcem5RHj2"
+            ],
+            "9ylgFd_Kiq": [
+              "Gcem5RHj2",
+              "9f4ktfSue"
+            ],
+            "jR1AK115m1": [
+              "9f4ktfSue",
+              "zJXTerU1e"
+            ],
+            "veBf01a_fN": [
+              "zJXTerU1e",
+              "OSlvIQSq0"
+            ],
+            "UUyVqbR_dr": [
+              "OSlvIQSq0",
+              "0gaqYzbOo"
+            ],
+            "gFNY2z-Yn3": [
+              "0gaqYzbOo",
+              "ZA8nG8kty"
+            ],
+            "OYHn7Vvw9o": [
+              "ZA8nG8kty",
+              "BHhOW_pom"
+            ],
+            "mCQtQtiBPU": [
+              "BHhOW_pom",
+              "KspsMwhbo"
+            ]
+          },
+          "cron": {},
+          "security_level": null,
+          "log": true,
+          "inheritLog": true,
+          "scheduled": false,
+          "group": "9936ffac-4255-4a29-a2d6-cff38e9e8e66",
+          "templateName": null,
+          "connector_method_meta": {
+            "inputs": {},
+            "outputs": {},
+            "options": {}
+          },
+          "monitor_flo": false
+        }
+      },
+      "34f72347-13de-40c5-b6dd-0cd055def636": {
+        "id": "34f72347-13de-40c5-b6dd-0cd055def636",
+        "name": "Fleet GET",
+        "description": "GET {fleet_url}{path} from the Fleet API and return the parsed JSON body. The Raw Request card's connection adds the Fleet API token (Authorization header); it is the only card in this folder that talks to Fleet.",
+        "data": {
+          "id": null,
+          "uuid": "34f72347-13de-40c5-b6dd-0cd055def636",
+          "display": {
+            "preview": [
+              {
+                "module": "control",
+                "name": "callable",
+                "kernel": true
+              },
+              {
+                "module": "string",
+                "name": "compose",
+                "kernel": true
+              },
+              {
+                "module": "httpfunctions",
+                "name": "raw",
+                "kernel": false
+              },
+              {
+                "module": "json",
+                "name": "parse",
+                "kernel": true
+              },
+              {
+                "module": "control",
+                "name": "return",
+                "kernel": true
+              }
+            ],
+            "eventConnecterName": "Helper Flow",
+            "isCallable": true
+          },
+          "tree": {
+            "id": 2,
+            "name": "empty",
+            "description": "This flow has been build w/o a tree and uses the newer, async, Addressing module."
+          },
+          "methods": [
+            {
+              "joins": {},
+              "address": "root:kernel:control:0.0.1:callable",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:control:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:control",
+                  "key": "control",
+                  "data": {
+                    "name": "control"
+                  }
+                }
+              },
+              "uuid": "c12Q8aA_J",
+              "branches": {},
+              "node": {
+                "key": "callable",
+                "data": {
+                  "name": "Helper Flow"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "callable",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": true,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 30000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Helper Flow",
+                    "description": "Start a Flow that executes on-demand, i.e. called by another Flow or via the Invoke API."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "groupRules": {
+                      "body": {
+                        "type": "object",
+                        "reserved": {},
+                        "extensible": true
+                      },
+                      "headers": {
+                        "type": "object",
+                        "reserved": {
+                          "Content-Type": "string"
+                        },
+                        "extensible": true
+                      },
+                      "query": {
+                        "type": "object",
+                        "reserved": {},
+                        "extensible": true
+                      }
+                    },
+                    "data": {
+                      "XvNaRzliDi": {
+                        "id": "XvNaRzliDi",
+                        "group": "context",
+                        "key": "index",
+                        "value": {
+                          "error": false,
+                          "type": "number",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Index",
+                          "index": 0
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "8q94Xs8ENY": {
+                        "id": "8q94Xs8ENY",
+                        "group": "context",
+                        "key": "parent",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "id": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "method": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "name": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "execution_id": {
+                              "type": "string",
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Caller",
+                          "collapsed": true,
+                          "index": 1
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "6FYhWz_PSN": {
+                        "id": "6FYhWz_PSN",
+                        "group": "context",
+                        "key": "error",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "message": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "method": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "flo": {
+                              "type": "number",
+                              "collection": false
+                            },
+                            "execution": {
+                              "type": "string",
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Error",
+                          "collapsed": true,
+                          "index": 2
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "jzPETqovzO": {
+                        "id": "jzPETqovzO",
+                        "group": "context",
+                        "key": "execution_id",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Execution ID",
+                          "index": 3
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "FzUPXgPDlJ": {
+                        "id": "FzUPXgPDlJ",
+                        "group": null,
+                        "key": "fleet_url",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 4,
+                          "custom": true
+                        },
+                        "required": false,
+                        "flags": "d"
+                      },
+                      "sIBLnHgD3v": {
+                        "id": "sIBLnHgD3v",
+                        "group": null,
+                        "key": "path",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 5,
+                          "custom": true
+                        },
+                        "required": false,
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "1u_wZtSDqZ": {
+                        "id": "1u_wZtSDqZ",
+                        "group": "context",
+                        "key": "index",
+                        "value": {
+                          "error": false,
+                          "type": "number",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Index",
+                          "index": 0
+                        }
+                      },
+                      "0uWqJdPT2W": {
+                        "id": "0uWqJdPT2W",
+                        "group": "context",
+                        "key": "parent",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "id": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "method": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "name": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "execution_id": {
+                              "type": "string",
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Caller",
+                          "collapsed": true,
+                          "index": 1
+                        }
+                      },
+                      "6vdVQo1htv": {
+                        "id": "6vdVQo1htv",
+                        "group": "context",
+                        "key": "error",
+                        "value": {
+                          "error": false,
+                          "type": {
+                            "message": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "method": {
+                              "type": "string",
+                              "collection": false
+                            },
+                            "flo": {
+                              "type": "number",
+                              "collection": false
+                            },
+                            "execution": {
+                              "type": "string",
+                              "collection": false
+                            }
+                          },
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Error",
+                          "collapsed": true,
+                          "index": 2
+                        }
+                      },
+                      "mROe8QKl_J": {
+                        "id": "mROe8QKl_J",
+                        "group": "context",
+                        "key": "execution_id",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": null,
+                          "available": []
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "displayname": "Execution ID",
+                          "index": 3
+                        }
+                      },
+                      "1FWSgZB9fw": {
+                        "id": "1FWSgZB9fw",
+                        "group": null,
+                        "key": "fleet_url",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 4,
+                          "custom": true
+                        },
+                        "_used": true
+                      },
+                      "YdAV8K3td8": {
+                        "id": "YdAV8K3td8",
+                        "group": null,
+                        "key": "path",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 5,
+                          "custom": true
+                        },
+                        "_used": true
+                      }
+                    },
+                    "groupRules": {
+                      "context": {
+                        "extensible": false
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "1FWSgZB9fw": {
+                  "vN9OQ8dvl": [
+                    {
+                      "input": "ma1dNN4nVv",
+                      "transform": null
+                    }
+                  ]
+                },
+                "YdAV8K3td8": {
+                  "vN9OQ8dvl": [
+                    {
+                      "input": "NKIML5y4tA",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:string:0.0.1:compose",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:string:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:string",
+                  "key": "string",
+                  "data": {
+                    "name": "string"
+                  }
+                }
+              },
+              "uuid": "vN9OQ8dvl",
+              "branches": {},
+              "node": {
+                "key": "compose",
+                "data": {
+                  "name": "Compose Fleet URL"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "compose",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Compose Fleet URL",
+                    "description": "Enter free form text and optionally drag fields into your text like a mail merge."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "string"
+                        ],
+                        "collection": false
+                      }
+                    },
+                    "data": {
+                      "7VbSSH9lMP": {
+                        "id": "7VbSSH9lMP",
+                        "group": null,
+                        "key": "_text_",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "{{{6vLAVkNUk}}}{{{3l2ri4yZz}}}",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      },
+                      "ma1dNN4nVv": {
+                        "id": "ma1dNN4nVv",
+                        "group": null,
+                        "key": "6vLAVkNUk",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1
+                        },
+                        "flags": "d"
+                      },
+                      "NKIML5y4tA": {
+                        "id": "NKIML5y4tA",
+                        "group": null,
+                        "key": "3l2ri4yZz",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 2
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "data": {
+                      "hIwLtGEksJ": {
+                        "id": "hIwLtGEksJ",
+                        "group": null,
+                        "key": "output",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [],
+                          "error": false
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "description": "",
+                          "displayname": "url"
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "hIwLtGEksJ": {
+                  "js8-uK4Rw": [
+                    {
+                      "input": "qaMZwiLlBQ",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:channels:http:httpfunctions:1.0.24:raw",
+              "parents": {
+                "version": {
+                  "address": "root:channels:http:httpfunctions:1.0.24",
+                  "key": "1.0.24",
+                  "data": {
+                    "name": "1.0.24",
+                    "id": 2178
+                  }
+                },
+                "channel": {
+                  "address": "root:channels:http:httpfunctions",
+                  "key": "httpfunctions",
+                  "data": {
+                    "name": "httpfunctions",
+                    "id": 72
+                  }
+                }
+              },
+              "uuid": "js8-uK4Rw",
+              "branches": {},
+              "node": {
+                "key": "raw",
+                "data": {
+                  "name": "Raw Request"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "raw",
+                  "executable": true,
+                  "displayed": true,
+                  "async": true,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "compat": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 30000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": 53228,
+                    "name": "Raw Request",
+                    "description": null
+                  },
+                  "meta": {},
+                  "config": "c7f4cf41-b520-4ca5-9925-428838904f2a",
+                  "partnerChannelKeys": 226,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {},
+                    "groupRules": {
+                      "Request": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 0,
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "qaMZwiLlBQ": {
+                        "id": "qaMZwiLlBQ",
+                        "group": "Request",
+                        "key": "URL",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      },
+                      "PC7h-hzLmp": {
+                        "id": "PC7h-hzLmp",
+                        "group": "Request",
+                        "key": "Method",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "GET",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "optional": false,
+                          "type": "list",
+                          "choices": [
+                            "GET",
+                            "POST",
+                            "PUT",
+                            "PATCH",
+                            "DELETE"
+                          ]
+                        },
+                        "flags": "d"
+                      },
+                      "ykOryf69rZ": {
+                        "id": "ykOryf69rZ",
+                        "group": "Request",
+                        "key": "Query",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [
+                            "string",
+                            "object"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 2,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      },
+                      "DwctGTiulh": {
+                        "id": "DwctGTiulh",
+                        "group": "Request",
+                        "key": "Headers",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {
+                            "Accept": "application/json",
+                            "ngrok-skip-browser-warning": "true"
+                          },
+                          "available": [
+                            "object"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 3,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      },
+                      "lIhm-ObxVd": {
+                        "id": "lIhm-ObxVd",
+                        "group": "Request",
+                        "key": "Body",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 4,
+                          "optional": false
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {},
+                    "groupRules": {
+                      "Response": {
+                        "extensible": false,
+                        "reserved": {},
+                        "index": 0,
+                        "type": "object"
+                      }
+                    },
+                    "data": {
+                      "c07jZPz5rT": {
+                        "id": "c07jZPz5rT",
+                        "group": "Response",
+                        "key": "Status Code",
+                        "value": {
+                          "error": false,
+                          "type": "number",
+                          "collection": false,
+                          "data": 0,
+                          "available": [
+                            "number"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        }
+                      },
+                      "EISur8uYoD": {
+                        "id": "EISur8uYoD",
+                        "group": "Response",
+                        "key": "Headers",
+                        "value": {
+                          "error": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [
+                            "object"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "collapsed": false
+                        }
+                      },
+                      "iUbhcwQe0R": {
+                        "id": "iUbhcwQe0R",
+                        "group": "Response",
+                        "key": "Body",
+                        "value": {
+                          "error": false,
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "string"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 2
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {},
+                  "display": {},
+                  "comments": "Perform a raw HTTP request, with complete control over the request and the response. Useful for calling XML services, and other advanced HTTP usage.",
+                  "enableNewMetadata": true
+                }
+              },
+              "pins": {
+                "iUbhcwQe0R": {
+                  "VvYa6T-5A": [
+                    {
+                      "input": "hrMN1vC8eF",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:json:0.0.1:parse",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:json:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:json",
+                  "key": "json",
+                  "data": {
+                    "name": "json"
+                  }
+                }
+              },
+              "uuid": "VvYa6T-5A",
+              "branches": {},
+              "node": {
+                "key": "parse",
+                "data": {
+                  "name": "Parse"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "parse",
+                  "executable": true,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 30000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Parse",
+                    "description": "Parse a JSON string into an object or list."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "data": {
+                      "hrMN1vC8eF": {
+                        "id": "hrMN1vC8eF",
+                        "group": null,
+                        "key": "string",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": true,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "rules": {
+                      "output": {
+                        "types": [
+                          "string",
+                          "number",
+                          "Date",
+                          "object",
+                          "boolean"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "W9dDCJtvxt": {
+                        "id": "W9dDCJtvxt",
+                        "group": null,
+                        "key": "output",
+                        "value": {
+                          "type": "object",
+                          "collection": false,
+                          "data": null
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "displayname": "body"
+                        },
+                        "_used": true
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {
+                "W9dDCJtvxt": {
+                  "eOdwfyNjV": [
+                    {
+                      "input": "DluQ-nnL9R",
+                      "transform": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:control:0.0.1:return",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:control:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:control",
+                  "key": "control",
+                  "data": {
+                    "name": "control"
+                  }
+                }
+              },
+              "uuid": "eOdwfyNjV",
+              "branches": {},
+              "node": {
+                "key": "return",
+                "data": {
+                  "name": "Return"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "return",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": true,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Return",
+                    "description": "End the Flow and return values to the caller of the Flow."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "DluQ-nnL9R": {
+                        "id": "DluQ-nnL9R",
+                        "group": null,
+                        "key": "body",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "custom": true
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": true,
+                    "rules": {
+                      "*": {
+                        "types": [
+                          "*"
+                        ],
+                        "collection": "*"
+                      }
+                    },
+                    "data": {
+                      "tyINTk-FZJ": {
+                        "id": "tyINTk-FZJ",
+                        "group": null,
+                        "key": "body",
+                        "value": {
+                          "error": false,
+                          "proxy": false,
+                          "check": false,
+                          "type": "object",
+                          "collection": false,
+                          "data": {},
+                          "available": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "Date",
+                            "Array",
+                            "object",
+                            "file",
+                            "flo",
+                            "folder"
+                          ]
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "custom": true
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {}
+            }
+          ],
+          "model": {},
+          "orderings": {
+            "LnIgXCjOSr": [
+              "c12Q8aA_J",
+              "vN9OQ8dvl"
+            ],
+            "CcvyOY3BD8": [
+              "vN9OQ8dvl",
+              "js8-uK4Rw"
+            ],
+            "D47Uv0QaTZ": [
+              "js8-uK4Rw",
+              "VvYa6T-5A"
+            ],
+            "Y5yeJSrKmr": [
+              "VvYa6T-5A",
+              "eOdwfyNjV"
+            ]
+          },
+          "cron": {},
+          "security_level": null,
+          "log": true,
+          "inheritLog": true,
+          "scheduled": false,
+          "group": "9936ffac-4255-4a29-a2d6-cff38e9e8e66",
+          "templateName": null,
+          "connector_method_meta": {
+            "inputs": {},
+            "outputs": {},
+            "options": {}
+          },
+          "monitor_flo": false
+        }
+      }
+    },
+    "configs": {
+      "b3e7e59d-2718-4eb4-93d1-66f991f79da2": {
+        "id": "b3e7e59d-2718-4eb4-93d1-66f991f79da2",
+        "name": "Okta",
+        "module": "okta",
+        "data": null
+      },
+      "c7f4cf41-b520-4ca5-9925-428838904f2a": {
+        "id": "c7f4cf41-b520-4ca5-9925-428838904f2a",
+        "name": "Fleet API",
+        "module": "httpfunctions",
+        "data": null
+      }
+    },
+    "tables": {},
+    "groups": {
+      "9936ffac-4255-4a29-a2d6-cff38e9e8e66": {
+        "id": "9936ffac-4255-4a29-a2d6-cff38e9e8e66",
+        "data": {
+          "name": "Device compliance - Quarantine",
+          "description": "",
+          "media_uri": "",
+          "path": ""
+        }
+      }
+    }
+  }
+}

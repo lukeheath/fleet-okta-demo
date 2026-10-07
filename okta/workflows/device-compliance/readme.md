@@ -12,6 +12,8 @@ These are seed files: they were assembled from cards copied out of Okta's publis
 | Quarantine host's user | Helper | `GET /api/v1/fleet/hosts/:id` → `host.end_users[0].idp_username`. If it's empty, the helper stops. Otherwise it runs Okta Read User → Add User to Group (`Quarantine`) → Clear User Sessions (also revokes OAuth tokens). |
 | Fleet GET | Helper | `GET {fleet_url}{path}` with the API Connector Raw Request, then parses the JSON body. It's the only card that calls Fleet. |
 
+The Fail flow answers non-2xx only if parsing the request body fails before Return Raw runs, which needs a malformed body. Fleet never sends one.
+
 ## `restore.flopack`: folder "Device compliance - Restore"
 
 | Flow | Trigger | What it does |
@@ -20,7 +22,7 @@ These are seed files: they were assembled from cards copied out of Okta's publis
 | Restore if compliant | Helper (`Record`, `State`) | `GET /api/v1/fleet/hosts?query=<login>&populate_policies=true&populate_end_users=true`, then finds the host whose `end_users[0].idp_username` equals the user's Okta login. It removes the user from `Quarantine` only if every policy in `gating_policies` reports `pass` on that host. |
 | Fleet GET | Helper | Same as in the Quarantine folder. Flows can't call across flopacks, so each folder has its own copy. |
 
-The Restore flow fails closed. The user stays in `Quarantine` if no Fleet host maps to them, or if a gating policy is failing or missing from that host's results.
+The Restore flow fails closed. The user stays in `Quarantine` if the stream record has no Okta login, if no Fleet host maps to them, or if a gating policy is failing or missing from that host's results.
 
 ## Configuration
 
@@ -33,9 +35,15 @@ The Fleet API token is never in these files. It lives in the **Fleet API** conne
 The "Gating policies" Assign card in "Restore if compliant" holds `gating_policies`, a list of Fleet policy names. It must list exactly the policies in `fleet/` that have `webhooks_and_tickets_enabled: true`:
 
 - If a webhook policy is missing from the list, users get released while that policy is still failing.
-- If the list names a policy that doesn't send webhooks, nobody gets released.
+- If the list names a policy that doesn't send webhooks, Restore still requires it to pass:
+  - If that policy doesn't exist in Fleet (for example, a typo), it's missing from every host's results, so nobody gets released.
+  - If it exists, users are released only once it passes, even though failing it never quarantined anyone.
 
 `tools/validate-flopack` checks the two lists against each other, and so does `tools/tests/test_repo_flopacks.py` in CI. When you add or remove a gating policy in Fleet, update this list in the same PR.
+
+## Known limitations
+
+- Restore checks only the first host whose IdP user matches. A user with a second Mac that's failing can still be released.
 
 ## Importing
 

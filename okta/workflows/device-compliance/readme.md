@@ -8,7 +8,7 @@ These are seed files: they were assembled from cards copied out of Okta's publis
 
 | Flow | Trigger | What it does |
 |---|---|---|
-| Fleet failing policy → Quarantine | API Endpoint (client token) | Fleet's failing-policy webhook calls it. It parses `hosts[]` and runs "Quarantine host's user" for each host under **For Each - Ignore Errors**, then always returns `200 {"ok":true}`, so Fleet never retries. |
+| Fleet failing policy - Quarantine | API Endpoint (client token) | Fleet's failing-policy webhook calls it. It parses `hosts[]` and runs "Quarantine host's user" for each host under **For Each - Ignore Errors**, then always returns `200 {"ok":true}`, so Fleet never retries. |
 | Quarantine host's user | Helper | `GET /api/v1/fleet/hosts/:id` → `host.end_users[0].idp_username`. If it's empty, the helper stops. Otherwise it runs Okta Read User → Add User to Group (`Quarantine`) → Clear User Sessions (also revokes OAuth tokens). |
 | Fleet GET | Helper | `GET {fleet_url}{path}` with the API Connector Raw Request, then parses the JSON body. It's the only card that calls Fleet. |
 
@@ -54,6 +54,6 @@ Okta has no API for importing flows. Every import creates new flows, with a new 
    - **Okta**: Read User, Add User to Group, and Clear User Sessions in "Quarantine host's user"; List Group Members in "Restore compliant users"; and Remove User from Group in "Restore if compliant".
    - **Fleet API**: the Raw Request card in each folder's "Fleet GET".
 3. Check each **Configuration** card: `fleet_url` and `quarantine_group_id`.
-4. On the API Endpoint card of "Fleet failing policy → Quarantine", leave security on the client token. Copy the Invoke URL, which includes `?clientToken=`. Set it as `OKTA_WEBHOOK_URL` in `.env` and in the repo's GitHub secrets, then run GitOps so Fleet's failing-policy webhook points at the new flow.
-5. Turn on all six flows: the helpers first, then "Fleet failing policy → Quarantine" and "Restore compliant users". Confirm that the scheduled flow shows "every 5 minutes".
+4. On the API Endpoint card of "Fleet failing policy - Quarantine", leave security on the client token. Copy the Invoke URL, which includes `?clientToken=`. Set it as `OKTA_WEBHOOK_URL` in `.env` and in the repo's GitHub secrets, then run GitOps so Fleet's failing-policy webhook points at the new flow.
+5. Turn on all six flows: the helpers first, then "Fleet failing policy - Quarantine" and "Restore compliant users". Confirm that the scheduled flow shows "every 5 minutes".
 6. Turn off or delete the flows from any previous import. A stale Restore flow keeps running with its old gating list.

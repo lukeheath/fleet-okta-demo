@@ -17,7 +17,7 @@ A guardrail change usually touches both systems: the Fleet policy (and its webho
 - `fleet/default.yml`: global Fleet settings (GitOps).
 - `fleet/fleets/workstations.yml`: the Workstations fleet's policies, scripts, and webhook.
 - `fleet/lib/`: scripts and policy queries referenced from the YAML.
-- `okta/workflows/device-compliance/quarantine.flopack`: the Fail flow ("Fleet failing policy → Quarantine") and its helpers.
+- `okta/workflows/device-compliance/quarantine.flopack`: the Fail flow ("Fleet failing policy - Quarantine") and its helpers.
 - `okta/workflows/device-compliance/restore.flopack`: the Recover flow ("Restore compliant users"), its helpers, and the `gating_policies` list.
 - `tools/validate-flopack`: validator. Run it after every flopack edit.
 

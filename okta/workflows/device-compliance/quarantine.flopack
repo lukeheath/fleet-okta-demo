@@ -12,7 +12,7 @@
     "flos": {
       "418da947-37a3-43f7-91e6-6db28eb02c3b": {
         "id": "418da947-37a3-43f7-91e6-6db28eb02c3b",
-        "name": "Fleet failing policy → Quarantine",
+        "name": "Fleet failing policy - Quarantine",
         "description": "Fleet's failing-policy webhook calls this API Endpoint with {\"timestamp\",\"policy\",{...},\"hosts\":[{\"id\",\"hostname\",\"display_name\",\"url\"}]}. Each host is handled by \"Quarantine host's user\" under For Each - Ignore Errors, so the flow always answers 200 and Fleet does not retry.",
         "data": {
           "id": null,
@@ -794,7 +794,7 @@
                         "value": {
                           "type": "object",
                           "collection": true,
-                          "data": "",
+                          "data": [],
                           "available": [
                             "*"
                           ],

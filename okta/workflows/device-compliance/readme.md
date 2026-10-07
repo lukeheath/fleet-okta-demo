@@ -12,7 +12,7 @@ These are seed files: they were assembled from cards copied out of Okta's publis
 | Quarantine host's user | Helper | `GET /api/v1/fleet/hosts/:id` → `host.end_users[0].idp_username`. If it's empty, the helper stops. Otherwise it runs Okta Read User → Add User to Group (`Quarantine`) → Clear User Sessions (also revokes OAuth tokens). |
 | Fleet GET | Helper | `GET {fleet_url}{path}` with the API Connector Raw Request, then parses the JSON body. It's the only card that calls Fleet. |
 
-The Fail flow answers non-2xx only if parsing the request body fails before Return Raw runs, which needs a malformed body. Fleet never sends one.
+"Fleet failing policy - Quarantine" answers non-2xx only if parsing the request body fails before Return Raw runs, for example on a malformed body. Fleet never sends one.
 
 ## `restore.flopack`: folder "Device compliance - Restore"
 

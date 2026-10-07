@@ -1463,7 +1463,8 @@
                           "type": "string",
                           "collection": true,
                           "data": [
-                            "Gatekeeper enabled"
+                            "Gatekeeper enabled",
+                            "Claude Code managed settings match org standard"
                           ],
                           "available": [
                             "string",
@@ -1509,7 +1510,8 @@
                           "type": "string",
                           "collection": true,
                           "data": [
-                            "Gatekeeper enabled"
+                            "Gatekeeper enabled",
+                            "Claude Code managed settings match org standard"
                           ],
                           "available": [
                             "string",

@@ -2758,7 +2758,7 @@
                         "value": {
                           "type": "object",
                           "collection": true,
-                          "data": "",
+                          "data": [],
                           "available": [
                             "*"
                           ],
@@ -3438,7 +3438,7 @@
                         "value": {
                           "type": "object",
                           "collection": true,
-                          "data": "",
+                          "data": [],
                           "available": [
                             "*"
                           ],

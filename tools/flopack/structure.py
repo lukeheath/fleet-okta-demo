@@ -59,11 +59,18 @@ def validate(doc: dict) -> tuple[list[str], list[str]]:
             mod = m['node']['model']
             ins = mod.get('inputs', {}).get('data', {}) or {}
             outs = mod.get('outputs', {}).get('data', {}) or {}
-            for coll in (ins, outs):
+            for side, coll in (('input', ins), ('output', outs)):
                 for k, v in coll.items():
                     if v.get('id') != k: E(f'{mw}: io key {k} != .id')
                     if k in io_seen: E(f'{mw}: input/output id {k} not unique within flo')
                     io_seen.add(k)
+                    # Okta's importer fails with 500 "TypeError: flo.id is not a function" on list values
+                    # whose data isn't a list. In all 127 templates such data is a list or null.
+                    val = v.get('value') if isinstance(v.get('value'), dict) else {}
+                    data = val.get('data')
+                    if val.get('collection') is True and data is not None and not isinstance(data, list):
+                        E(f'{mw}: {side} {v.get("key")!r} has collection: true but data is '
+                          f'{type(data).__name__} {json.dumps(data)[:40]}; use [] (non-list data crashes the Okta importer)')
             for oid, tg in (m.get('pins') or {}).items():
                 if oid not in outs: E(f'{mw}: pin source {oid} is not an output of this card')
                 for tu, lst in tg.items():

@@ -2,7 +2,7 @@ import glob
 import os
 import unittest
 
-from helpers import make_flopack, methods, clone, FLO_ID
+from helpers import card, make_flopack, methods, clone, FLO_ID
 from flopack.structure import validate
 
 
@@ -44,6 +44,56 @@ class StructureTest(unittest.TestCase):
         errors, warnings = validate(doc)
         self.assertEqual(errors, [])
         self.assertTrue(any("checksum" in w for w in warnings), warnings)
+
+    # Okta's importer fails with 500 "TypeError: flo.id is not a function" when a value has
+    # collection: true but its data isn't a list. Across the 127 templates, such data is
+    # always a list or null.
+    def _with_list_value(self, io, data):
+        doc = make_flopack()
+        methods(doc)[1]["node"]["model"][io]["data"]["listVal001"] = {
+            "id": "listVal001", "key": "hosts", "value": {"type": "object", "collection": True, "data": data}}
+        return doc
+
+    def _collection_errors(self, doc):
+        errors, _ = validate(doc)
+        return [e for e in errors if "collection" in e]
+
+    def test_list_value_with_string_data_is_error(self):
+        for io in ("inputs", "outputs"):
+            with self.subTest(io=io):
+                errors = self._collection_errors(self._with_list_value(io, ""))
+                self.assertEqual(len(errors), 1, errors)
+                self.assertIn("[]", errors[0])
+                self.assertIn("assignCrd1", errors[0])
+                self.assertIn("root:kernel:object:0.0.1:assign", errors[0])
+                self.assertIn("hosts", errors[0])
+
+    def test_list_value_with_object_data_is_error(self):
+        for io in ("inputs", "outputs"):
+            with self.subTest(io=io):
+                errors = self._collection_errors(self._with_list_value(io, {}))
+                self.assertEqual(len(errors), 1, errors)
+                self.assertIn("[]", errors[0])
+
+    def test_list_value_with_list_or_null_data_is_valid(self):
+        for io in ("inputs", "outputs"):
+            for data in ([], ["x"], None):
+                with self.subTest(io=io, data=data):
+                    errors, _ = validate(self._with_list_value(io, data))
+                    self.assertEqual(errors, [])
+
+    def test_list_value_with_string_data_in_inline_flow_is_error(self):
+        doc = make_flopack()
+        inner = card("innerCrd01", "object", "get",
+                     outputs={"innerOut01": {"id": "innerOut01", "key": "hosts",
+                                             "value": {"type": "object", "collection": True, "data": ""}}})
+        inline = {"id": "44444444-4444-4444-8444-444444444444", "uuid": "44444444-4444-4444-8444-444444444444",
+                  "methods": [inner], "orderings": {}}
+        methods(doc)[1]["node"]["model"]["inputs"]["data"]["inlineFlo1"] = {
+            "id": "inlineFlo1", "key": "flo", "value": {"type": "flo", "data": inline}}
+        errors = self._collection_errors(doc)
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("innerCrd01", errors[0])
 
     @unittest.skipUnless(os.environ.get("OKTA_TEMPLATES_DIR"), "set OKTA_TEMPLATES_DIR to run the corpus check")
     def test_all_okta_templates_have_no_errors(self):

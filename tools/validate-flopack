@@ -1,9 +1,52 @@
 #!/usr/bin/env python3
-"""Structural validator for Okta Workflows .flopack files.
+"""Validate Okta Workflows .flopack files before they reach a PR.
 
-STUB: implemented in Phase 2 of docs/plan.md.
+Checks:
+  1. structure: references between flows, cards, connections, and tables resolve,
+     so the Workflows Console can import the file.
+  2. formatting: the file is in canonical form (run tools/fmt-flopack).
+  3. gating: the Restore flow's gating_policies list matches the Fleet policies that
+     send failing hosts to Okta (webhooks_and_tickets_enabled: true).
+
+Usage: tools/validate-flopack [--fleet-dir DIR] FILE...
 """
+import argparse
+import json
+import pathlib
 import sys
 
-print("validate-flopack: not implemented yet", file=sys.stderr)
-sys.exit(2)
+TOOLS = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(TOOLS))
+
+from flopack import fmt, gating, structure  # noqa: E402
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--fleet-dir", type=pathlib.Path, default=TOOLS.parent / "fleet")
+    ap.add_argument("files", nargs="+", type=pathlib.Path)
+    args = ap.parse_args()
+    failed = 0
+    for path in args.files:
+        text = path.read_text()
+        try:
+            doc = json.loads(text)
+        except json.JSONDecodeError as e:
+            print(f"ERROR {path}: not valid JSON: {e}")
+            failed += 1
+            continue
+        errors, warnings = structure.validate(doc)
+        if not fmt.is_formatted(text):
+            errors.append(f"not in canonical format; run tools/fmt-flopack {path}")
+        errors += gating.check(doc, args.fleet_dir)
+        for e in errors:
+            print(f"ERROR {path}: {e}")
+        for w in warnings:
+            print(f"WARN  {path}: {w}")
+        failed += bool(errors)
+    print(f"{len(args.files)} file(s) checked, {failed} with errors")
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

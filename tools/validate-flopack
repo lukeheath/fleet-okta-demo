@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+"""Structural validator for Okta Workflows .flopack files.
+
+STUB: implemented in Phase 2 of docs/plan.md.
+"""
+import sys
+
+print("validate-flopack: not implemented yet", file=sys.stderr)
+sys.exit(2)

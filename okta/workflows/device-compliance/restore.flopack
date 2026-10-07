@@ -817,7 +817,7 @@
       "e6915fb7-9eb5-4cd3-a0f2-79d2930a01d3": {
         "id": "e6915fb7-9eb5-4cd3-a0f2-79d2930a01d3",
         "name": "Restore if compliant",
-        "description": "Release one quarantined user if their Mac passes every policy in gating_policies. Fails closed: no matching Fleet host, or a gating policy that is failing or missing from the host's results, keeps the user in Quarantine. gating_policies must list exactly the Fleet policies with webhooks_and_tickets_enabled: true (tools/validate-flopack checks this).",
+        "description": "Release one quarantined user if their Mac passes every policy in gating_policies. Fails closed: an empty login, no matching Fleet host, or a gating policy that is failing or missing from the host's results, keeps the user in Quarantine. gating_policies must list exactly the Fleet policies with webhooks_and_tickets_enabled: true (tools/validate-flopack checks this).",
         "data": {
           "id": null,
           "uuid": "e6915fb7-9eb5-4cd3-a0f2-79d2930a01d3",
@@ -836,6 +836,11 @@
               {
                 "module": "object",
                 "name": "pick",
+                "kernel": true
+              },
+              {
+                "module": "control",
+                "name": "continueIf",
                 "kernel": true
               },
               {
@@ -1716,6 +1721,12 @@
                       "input": "iAn3E6eV1L",
                       "transform": null
                     }
+                  ],
+                  "XGEwg--0b": [
+                    {
+                      "input": "pdIT64oeyt",
+                      "transform": null
+                    }
                   ]
                 },
                 "FP3EvNlLaT": {
@@ -1727,6 +1738,256 @@
                   ]
                 }
               }
+            },
+            {
+              "joins": {},
+              "address": "root:kernel:control:0.0.1:continueIf",
+              "parents": {
+                "version": {
+                  "address": "root:kernel:control:0.0.1",
+                  "key": "0.0.1",
+                  "data": {
+                    "name": "0.0.1"
+                  }
+                },
+                "channel": {
+                  "address": "root:kernel:control",
+                  "key": "control",
+                  "data": {
+                    "name": "control"
+                  }
+                }
+              },
+              "uuid": "XGEwg--0b",
+              "branches": {},
+              "node": {
+                "key": "continueIf",
+                "data": {
+                  "name": "Continue If user has a login"
+                },
+                "model": {
+                  "type": "method",
+                  "_v": 2,
+                  "key": "continueIf",
+                  "executable": false,
+                  "displayed": true,
+                  "async": false,
+                  "cooperative": false,
+                  "mirrored": false,
+                  "inlined": false,
+                  "dependencies": [],
+                  "timeout": 90000,
+                  "idempotent": false,
+                  "monitor": false,
+                  "webhook": false,
+                  "webhookList": false,
+                  "webhookConditions": false,
+                  "mobile": false,
+                  "hooks": {},
+                  "policy": {
+                    "error": {
+                      "type": "finish"
+                    }
+                  },
+                  "metadata": {
+                    "id": null,
+                    "name": "Continue If user has a login",
+                    "description": "Stop the Flow if a condition isn't true."
+                  },
+                  "meta": {},
+                  "config": null,
+                  "partnerChannelKeys": null,
+                  "inputs": {
+                    "extensible": false,
+                    "rules": {
+                      "left-operand": {
+                        "types": [
+                          "object",
+                          "string",
+                          "number",
+                          "Date",
+                          "boolean"
+                        ]
+                      },
+                      "right-operand": {
+                        "types": [
+                          "object",
+                          "string",
+                          "number",
+                          "Date",
+                          "boolean"
+                        ]
+                      }
+                    },
+                    "data": {
+                      "pdIT64oeyt": {
+                        "id": "pdIT64oeyt",
+                        "group": null,
+                        "key": "left-operand",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "object",
+                            "string",
+                            "number",
+                            "Date",
+                            "boolean"
+                          ],
+                          "error": false
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 0,
+                          "displayname": "value a"
+                        },
+                        "flags": "d"
+                      },
+                      "nD4vQl5WMg": {
+                        "id": "nD4vQl5WMg",
+                        "group": null,
+                        "key": "operator",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "is not empty",
+                          "available": [],
+                          "error": false
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 1,
+                          "choices": [
+                            {
+                              "value": "==",
+                              "label": "equal to"
+                            },
+                            {
+                              "value": "!=",
+                              "label": "not equal"
+                            },
+                            {
+                              "value": ">=",
+                              "label": "greater than or equal"
+                            },
+                            {
+                              "value": "<=",
+                              "label": "less than or equal"
+                            },
+                            {
+                              "value": ">",
+                              "label": "greater than"
+                            },
+                            {
+                              "value": "<",
+                              "label": "less than"
+                            },
+                            {
+                              "value": "%",
+                              "label": "a multiple of"
+                            },
+                            {
+                              "value": "in",
+                              "label": "in"
+                            },
+                            {
+                              "value": "not in",
+                              "label": "not in"
+                            },
+                            {
+                              "value": "has",
+                              "label": "has key"
+                            },
+                            {
+                              "value": "doesn't have",
+                              "label": "doesn't have key"
+                            },
+                            {
+                              "value": "is empty",
+                              "label": "is empty"
+                            },
+                            {
+                              "value": "is not empty",
+                              "label": "is not empty"
+                            }
+                          ],
+                          "displayname": "comparison"
+                        },
+                        "flags": "d"
+                      },
+                      "l4ZH_fRTe-": {
+                        "id": "l4ZH_fRTe-",
+                        "group": null,
+                        "key": "right-operand",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "",
+                          "available": [
+                            "object",
+                            "string",
+                            "number",
+                            "Date",
+                            "boolean"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 2,
+                          "displayname": "value b"
+                        },
+                        "flags": "d"
+                      },
+                      "wBdUS4DOqD": {
+                        "id": "wBdUS4DOqD",
+                        "group": "otherwise",
+                        "key": "message",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": "The stream record has no Okta login, so Fleet can't be searched for this user's host. Fail closed: the user stays quarantined.",
+                          "available": [
+                            "*"
+                          ]
+                        },
+                        "required": false,
+                        "ref": false,
+                        "metadata": {
+                          "index": 3
+                        },
+                        "flags": "d"
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "extensible": false,
+                    "data": {
+                      "fd4ZA1jt_0": {
+                        "id": "fd4ZA1jt_0",
+                        "group": null,
+                        "key": "message",
+                        "value": {
+                          "type": "string",
+                          "collection": false,
+                          "data": null
+                        },
+                        "ref": false,
+                        "metadata": {
+                          "hidden": true,
+                          "displayed": false,
+                          "index": 0
+                        }
+                      }
+                    }
+                  },
+                  "runtime": {}
+                }
+              },
+              "pins": {}
             },
             {
               "joins": {},
@@ -4347,7 +4608,7 @@
             ],
             "pT8QiKByt6": [
               "B10IQ8JfS",
-              "P__04lzxn"
+              "XGEwg--0b"
             ],
             "F6vIXl8oOW": [
               "P__04lzxn",
@@ -4400,6 +4661,10 @@
             "HotFr80tgZ": [
               "kRdoYWQC_",
               "3chZzAT7s"
+            ],
+            "hi2VV2X90M": [
+              "XGEwg--0b",
+              "P__04lzxn"
             ]
           },
           "cron": {},

@@ -1,1 +1,19 @@
-# STUB: global Fleet GitOps settings. Filled in Phase 2 of docs/plan.md.
+org_settings:
+  server_settings:
+    server_url: $FLEET_URL
+  org_info:
+    org_name: Fleet Okta Demo
+  webhook_settings:
+    interval: "1m"
+agent_options:
+  config:
+    options:
+      distributed_interval: 10
+      distributed_plugin: tls
+      distributed_tls_max_attempts: 3
+      logger_tls_endpoint: /api/osquery/log
+      logger_tls_period: 10
+      pack_delimiter: /
+controls:
+policies:
+reports:

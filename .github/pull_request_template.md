@@ -12,7 +12,7 @@
 
 ## After merge
 - [ ] GitHub Actions applies the Fleet changes (`fleetctl gitops`).
-- [ ] Import `okta/workflows/device-compliance/restore.flopack` in the Workflows Console, reselect connections, turn the new flows on, and turn the previous Restore flows off.
+- [ ] Import `okta/workflows/device-compliance/restore.flopack` in the Workflows Console, reselect connections, turn the previous Restore flows off, then turn the new flows on (the plan allows only 5 active flows).
 
 ## Validation
 - [ ] `tools/validate-flopack okta/workflows/device-compliance/*.flopack`

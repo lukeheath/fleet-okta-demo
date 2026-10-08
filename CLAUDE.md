@@ -23,7 +23,7 @@ Each flow, its configuration, how to import it, and known limitations are docume
 - `fleet/fleets/workstations.yml`: the Workstations fleet. It holds the policies, the scripts, and the failing-policy webhook. Guardrail policies go here.
 - `fleet/lib/macos/scripts/deploy-claude-settings.sh`: writes the org's Claude Code standard to each Mac.
 - `okta/workflows/device-compliance/quarantine.flopack`: "Fleet failing policy - Quarantine", "Quarantine host's user", and "Fleet GET".
-- `okta/workflows/device-compliance/restore.flopack`: "Restore compliant users", "Restore if compliant", "Fleet GET", and the `gating_policies` list.
+- `okta/workflows/device-compliance/restore.flopack`: "Restore compliant users", "Restore if compliant" (which calls Fleet itself, with no "Fleet GET" helper), and the `gating_policies` list.
 - `tools/validate-flopack`, `tools/fmt-flopack`, `tools/tests/`: the flopack validator, the formatter, and their tests.
 - `.github/workflows/`: `validate.yml` runs on every PR. `gitops.yml` applies `fleet/` on every push to `main`.
 
@@ -84,6 +84,7 @@ Don't touch `quarantine.flopack` for a guardrail. See **Flopack editing rules**.
 - Never change `checksum`, `meta`, any `id` or `uuid`, connector versions in `address`, `data.configs`, or anything under `display`.
 - A value with `"collection": true` must have list `data` (`[]` or `["a", "b"]`) or `null`. It must never be a string, like `""` or `"[\"a\"]"`. Okta's importer fails with a 500 "flo.id is not a function" otherwise. Don't hand-type a list as a string.
 - Make targeted edits. Don't regenerate, reorder, or re-serialize the file another way. Run `tools/fmt-flopack <file>` after every edit, because the validator rejects anything that isn't in canonical format.
+- Don't add flows. The Workflows plan allows 5 active flows, and helpers count because they must be on to be called. Quarantine uses 3 and Restore uses 2.
 - **Don't change `quarantine.flopack` for a new guardrail.** Its API endpoint is Fleet's webhook target, and re-importing it creates a new Invoke URL. Fleet would keep calling the old URL until the webhook secret is updated.
 
 ## Fleet YAML rules

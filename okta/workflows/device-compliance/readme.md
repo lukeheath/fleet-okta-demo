@@ -2,6 +2,8 @@
 
 Two flopacks, one per Workflows folder. Each one imports on its own.
 
+The Workflows plan allows 5 active flows. Quarantine uses 3, Restore uses 2. Helper flows count, because a helper must be on to be called. So don't add a flow without removing one.
+
 These are seed files: they were assembled from cards copied out of Okta's published workflow templates, not exported from a live org. Once they're imported and working in `fleetdmdev`, we'll replace them with Okta's own exports.
 
 ## `quarantine.flopack`: folder "Device compliance - Quarantine"
@@ -10,7 +12,7 @@ These are seed files: they were assembled from cards copied out of Okta's publis
 |---|---|---|
 | Fleet failing policy - Quarantine | API Endpoint (client token) | Fleet's failing-policy webhook calls it. It parses `hosts[]` and runs "Quarantine host's user" for each host under **For Each - Ignore Errors**, then always returns `200 {"ok":true}`, so Fleet never retries. |
 | Quarantine host's user | Helper | `GET /api/v1/fleet/hosts/:id` → `host.end_users[0].idp_username`. If it's empty, the helper stops. Otherwise it runs Okta Read User → Add User to Group (`Quarantine`) → Clear User Sessions (also revokes OAuth tokens). |
-| Fleet GET | Helper | `GET {fleet_url}{path}` with the API Connector Raw Request, then parses the JSON body. It's the only card that calls Fleet. |
+| Fleet GET | Helper | `GET {fleet_url}{path}` with the API Connector Raw Request, then parses the JSON body. It's the only card in this folder that calls Fleet. |
 
 "Fleet failing policy - Quarantine" answers non-2xx only if parsing the request body fails before Return Raw runs, for example on a malformed body. Fleet never sends one.
 
@@ -19,8 +21,9 @@ These are seed files: they were assembled from cards copied out of Okta's publis
 | Flow | Trigger | What it does |
 |---|---|---|
 | Restore compliant users | Scheduled, every 5 minutes | Streams each member of `Quarantine` to "Restore if compliant". |
-| Restore if compliant | Helper (`Record`, `State`) | `GET /api/v1/fleet/hosts?query=<login>&populate_policies=true&populate_end_users=true`, then finds the host whose `end_users[0].idp_username` equals the user's Okta login. It removes the user from `Quarantine` only if every policy in `gating_policies` reports `pass` on that host. |
-| Fleet GET | Helper | Same as in the Quarantine folder. Flows can't call across flopacks, so each folder has its own copy. |
+| Restore if compliant | Helper (`Record`, `State`) | Calls Fleet directly: a Raw Request `GET {fleet_url}/api/v1/fleet/hosts?query=<login>&populate_policies=true&populate_end_users=true`, then Parse. It finds the host whose `end_users[0].idp_username` equals the user's Okta login, and removes the user from `Quarantine` only if every policy in `gating_policies` reports `pass` on that host. |
+
+Restore has no "Fleet GET" helper. To stay within the plan's flow limit, "Restore if compliant" makes the Fleet call with its own Compose, Raw Request, and Parse cards. These are the same cards and versions Quarantine's "Fleet GET" uses.
 
 The Restore flow fails closed. The user stays in `Quarantine` if the stream record has no Okta login, if no Fleet host maps to them, or if a gating policy is failing or missing from that host's results.
 
@@ -52,8 +55,8 @@ Okta has no API for importing flows. Every import creates new flows, with a new 
 1. In the Workflows Console, import `quarantine.flopack` and then `restore.flopack` (drag each file in, or use **Import** on the folder menu).
 2. Reselect connections. Connections aren't exported, so each connector card needs one:
    - **Okta**: Read User, Add User to Group, and Clear User Sessions in "Quarantine host's user"; List Group Members in "Restore compliant users"; and Remove User from Group in "Restore if compliant".
-   - **Fleet API**: the Raw Request card in each folder's "Fleet GET".
+   - **Fleet API**: the Raw Request card in Quarantine's "Fleet GET" and the Raw Request card in "Restore if compliant".
 3. Check each **Configuration** card: `fleet_url` and `quarantine_group_id`.
 4. On the API Endpoint card of "Fleet failing policy - Quarantine", leave security on the client token. Copy the Invoke URL, which includes `?clientToken=`. Set it as `OKTA_WEBHOOK_URL` in `.env` and in the repo's GitHub secrets, then run GitOps so Fleet's failing-policy webhook points at the new flow.
-5. Turn on all six flows: the helpers first, then "Fleet failing policy - Quarantine" and "Restore compliant users". Confirm that the scheduled flow shows "every 5 minutes".
-6. Turn off or delete the flows from any previous import. A stale Restore flow keeps running with its old gating list.
+5. Turn off or delete the flows from any previous import. They count toward the 5-active-flow limit, and a stale Restore flow keeps running with its old gating list.
+6. Turn on all five flows: the helpers first, then "Fleet failing policy - Quarantine" and "Restore compliant users". Confirm that the scheduled flow shows "every 5 minutes".

@@ -2371,7 +2371,7 @@
                         "value": {
                           "type": "string",
                           "collection": false,
-                          "data": "{{{SwiXg_uzu}}}/api/v1/fleet/hosts?query={{{Gk7r-QTWp}}}&populate_policies=true&populate_end_users=true",
+                          "data": "{{{SwiXg_uzu}}}/api/v1/fleet/hosts?query={{{Gk7r-QTWp}}}&populate_policies=true&device_mapping=true",
                           "available": [],
                           "error": false
                         },
@@ -3212,7 +3212,7 @@
                         "value": {
                           "type": "string",
                           "collection": false,
-                          "data": "end_users.0.idp_username",
+                          "data": "device_mapping.0.email",
                           "available": [],
                           "error": false
                         },

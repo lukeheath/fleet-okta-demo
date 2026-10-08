@@ -21,9 +21,11 @@ These are seed files: they were assembled from cards copied out of Okta's publis
 | Flow | Trigger | What it does |
 |---|---|---|
 | Restore compliant users | Scheduled, every 5 minutes | Streams each member of `Quarantine` to "Restore if compliant". |
-| Restore if compliant | Helper (`Record`, `State`) | Calls Fleet directly: a Raw Request `GET {fleet_url}/api/v1/fleet/hosts?query=<login>&populate_policies=true&populate_end_users=true`, then Parse. It finds the host whose `end_users[0].idp_username` equals the user's Okta login, and removes the user from `Quarantine` only if every policy in `gating_policies` reports `pass` on that host. |
+| Restore if compliant | Helper (`Record`, `State`) | Calls Fleet directly: a Raw Request `GET {fleet_url}/api/v1/fleet/hosts?query=<login>&populate_policies=true&device_mapping=true`, then Parse. It finds the host whose `device_mapping[0].email` equals the user's Okta login, and removes the user from `Quarantine` only if every policy in `gating_policies` reports `pass` on that host. |
 
 Restore has no "Fleet GET" helper. To stay within the plan's flow limit, "Restore if compliant" makes the Fleet call with its own Compose, Raw Request, and Parse cards. These are the same cards and versions Quarantine's "Fleet GET" uses.
+
+Fleet's list-hosts endpoint doesn't populate `end_users` for device-mapped users, so Restore matches on `device_mapping[0].email`. This applies to Fleet 4.92.3, even with `populate_end_users=true`. The single-host endpoint does return `end_users`, so Quarantine still reads `end_users[0].idp_username`.
 
 The Restore flow fails closed. The user stays in `Quarantine` if the stream record has no Okta login, if no Fleet host maps to them, or if a gating policy is failing or missing from that host's results.
 
@@ -46,7 +48,8 @@ The "Gating policies" Assign card in "Restore if compliant" holds `gating_polici
 
 ## Known limitations
 
-- Restore checks only the first host whose IdP user matches. A user with a second Mac that's failing can still be released.
+- Restore checks only the first host whose device mapping matches. A user with a second Mac that's failing can still be released.
+- Restore compares only `device_mapping[0]`, the host's first mapping. If a host has several mappings and the user's login isn't the first, the user isn't released (fail closed).
 
 ## Importing
 

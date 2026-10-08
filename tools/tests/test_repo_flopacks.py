@@ -108,6 +108,20 @@ class RepoFlopacksTest(unittest.TestCase):
         (encode,) = [u for u in order if cards[u]["address"].endswith(":encodeComponent")]
         self.assertLess(order.index(guards[0]), order.index(encode))
 
+    def test_restore_matches_host_by_device_mapping_email(self):
+        # Fleet 4.92.3's list-hosts endpoint returns end_users: null for device-mapped users, even with
+        # populate_end_users=true. device_mapping=true does return the mapping, so Restore matches on that.
+        fd = flow(load(DEVICE_COMPLIANCE / "restore.flopack"), "Restore if compliant")
+
+        def literal(card_title, key):
+            (card,) = [m for m in fd["methods"] if title(m) == card_title]
+            (value,) = [i["value"]["data"] for i in card["node"]["model"]["inputs"]["data"].values()
+                        if i["key"] == key]
+            return value
+
+        self.assertIn("device_mapping=true", literal("Compose Fleet hosts URL", "_text_"))
+        self.assertEqual(literal("Find the user's host", "path"), "device_mapping.0.email")
+
 
 if __name__ == "__main__":
     unittest.main()

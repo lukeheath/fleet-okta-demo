@@ -27,5 +27,19 @@ policies:
     platform: darwin
     query: SELECT 1 FROM gatekeeper WHERE assessments_enabled = 1;
     webhooks_and_tickets_enabled: true
+  - name: Claude Code managed settings match org standard
+    description: Claude Code's managed settings file forces claude.ai login, disables bypass permissions mode, and denies reading .env files and the secrets folder.
+    resolution: IT re-runs the deploy-claude-settings.sh script on this Mac from Fleet to restore /Library/Application Support/ClaudeCode/managed-settings.json.
+    platform: darwin
+    query: >-
+      SELECT 1 WHERE (SELECT COUNT(DISTINCT value) FROM parse_json
+      WHERE path = '/Library/Application Support/ClaudeCode/managed-settings.json' AND (
+      (fullkey = 'forceLoginMethod' AND value = 'claudeai') OR
+      (fullkey = 'permissions/disableBypassPermissionsMode' AND value = 'disable') OR
+      (fullkey LIKE 'permissions/deny/%' AND value = 'Read(./.env)') OR
+      (fullkey LIKE 'permissions/deny/%' AND value = 'Read(./.env.*)') OR
+      (fullkey LIKE 'permissions/deny/%' AND value = 'Read(./secrets/**)')
+      )) = 5;
+    webhooks_and_tickets_enabled: true
 software:
 reports:

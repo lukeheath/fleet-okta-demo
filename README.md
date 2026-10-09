@@ -1,9 +1,9 @@
-# Fleet + Okta Workflows demo
+# Fleet + Okta Workflows
 
-One repo manages Fleet and Okta Workflows. An admin describes a device-to-identity guardrail in one prompt, and Claude Code opens one PR that changes both systems.
+Device health and Okta access, managed in one repo.
 
-- `fleet/`: Fleet GitOps config, applied by `fleetctl gitops` when a PR is merged.
-- `okta/workflows/`: Okta Workflows flows exported as `.flopack` JSON. Okta has no import API, so each flow is imported by hand in the Workflows Console.
-- `tools/validate-flopack`: structural validator, run in CI on every PR.
+- `fleet/`: Fleet configuration. Merging to `main` applies it with `fleetctl gitops`.
+- `okta/workflows/`: Okta Workflows flows, exported as `.flopack` files.
+- `tools/validate-flopack`: checks every flopack on each pull request.
 
-See `CLAUDE.md` for how the systems connect.
+When a Mac fails a policy that gates Okta, Fleet tells Okta Workflows, and the user can't sign in until the Mac passes again.

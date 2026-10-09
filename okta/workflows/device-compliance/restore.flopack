@@ -1468,7 +1468,8 @@
                           "type": "string",
                           "collection": true,
                           "data": [
-                            "Gatekeeper enabled"
+                            "Gatekeeper enabled",
+                            "Claude Code org settings enforced"
                           ],
                           "available": [
                             "string",
@@ -1514,7 +1515,8 @@
                           "type": "string",
                           "collection": true,
                           "data": [
-                            "Gatekeeper enabled"
+                            "Gatekeeper enabled",
+                            "Claude Code org settings enforced"
                           ],
                           "available": [
                             "string",
